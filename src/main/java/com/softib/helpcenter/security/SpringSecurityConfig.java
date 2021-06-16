@@ -33,21 +33,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-        .antMatchers("/api/rest/auth",
-        			"/api/rest/register",
-        			"/api/rest/v2/api-docs",
-        			"/api/rest//configuration/**",
-        			"/api/rest/swagger*/**",
-        			"/api/rest/swagger-resources/**",
-        			"/api/rest/configuration/security",
-        			"/api/rest/swagger-ui.html",
-        			"/api/rest/webjars/**").permitAll()
-        .and().authorizeRequests().antMatchers("/api/rest/questions").hasAnyAuthority("ADMIN")
-        .and().authorizeRequests().antMatchers("/api/rest/from-core/users").hasAnyAuthority("ADMIN","BANKER")
-        .and().authorizeRequests().antMatchers("/api/rest/api1").hasAnyAuthority("ADMIN","BANKER","USER")
-        .and().authorizeRequests().antMatchers("/api/rest/api2").hasAnyAuthority("ADMIN","BANKER","USER")
-        .and().authorizeRequests().antMatchers("/api/rest/api3").hasAnyAuthority("ADMIN","BANKER","USER")
-        .and().authorizeRequests().antMatchers("/api/rest/api4").hasAnyAuthority("ADMIN","BANKER","USER")
+        .antMatchers(
+        			"/v2/api-docs",
+        			"/configuration/**",
+        			"/swagger*/**",
+        			"/swagger-resources/**",
+        			"/configuration/security",
+        			"/swagger-ui.html",
+        			"/webjars/**").permitAll()
+        .and().authorizeRequests().antMatchers("/questions").hasAnyAuthority("ADMIN")
+        .and().authorizeRequests().antMatchers("/from-core/users").hasAnyAuthority("ADMIN","BANKER")
+        .and().authorizeRequests().antMatchers("/api1").hasAnyAuthority("ADMIN","BANKER","USER")
+        .and().authorizeRequests().antMatchers("/api2").hasAnyAuthority("ADMIN","BANKER","USER")
+        .and().authorizeRequests().antMatchers("/api3").hasAnyAuthority("ADMIN","BANKER","USER")
+        .and().authorizeRequests().antMatchers("/api4").hasAnyAuthority("ADMIN","BANKER","USER")
         .anyRequest().authenticated()
         .and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();    

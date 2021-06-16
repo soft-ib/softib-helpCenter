@@ -13,7 +13,7 @@
 	<artifactId>soft-ib-help-center</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>soft-ib</name>
+	<name>soft-ib-help-center</name>
 	<description>Microservice help center Soft IB</description>
 	<properties>
 		<java.version>1.8</java.version>
