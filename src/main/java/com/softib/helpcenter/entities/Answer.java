@@ -6,14 +6,17 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
  
 @Entity
-
 public class Answer implements Serializable{
 
 	/**
@@ -31,21 +34,22 @@ public class Answer implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private AnswerStatus status;
 	
+	@JsonIgnore
 	@ManyToOne
-	private Question question;
+ 	private Question question;
 
-	public Answer(int answerId, String username, String content, Date creationDate, Date updateDate,
-			AnswerStatus status, Question question) {
+	public Answer(int answerId, String username, String content, 
+			AnswerStatus status) {
 		super();
 		this.answerId = answerId;
 		this.username = username;
 		this.content = content;
-		this.creationDate = creationDate;
-		this.updateDate = updateDate;
-		this.status = status;
-		this.question = question;
+		this.creationDate = new Date();
+ 		this.status = status;
+ 	}
+	public Answer() {
+		
 	}
-
 	public int getAnswerId() {
 		return answerId;
 	}

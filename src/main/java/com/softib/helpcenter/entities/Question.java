@@ -8,10 +8,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
  @Entity
 public class Question implements Serializable {
@@ -23,17 +26,17 @@ public class Question implements Serializable {
 	
 	
 	public Question(int questionId, String username, String summary, String content, QuestionType questionType,
-			Date creationDate, Date updateDate, QuestionStatus status, List<Answer> answers) {
+			  QuestionStatus status) {
 		super();
 		this.questionId = questionId;
 		this.username = username;
 		this.summary = summary;
 		this.content = content;
 		this.questionType = questionType;
-		this.creationDate = creationDate;
-		this.updateDate = updateDate;
-		this.status = status;
-		this.answers = answers;
+		this.creationDate = new Date();
+ 		this.status = status;
+ 		this.numberOfAnswers = 0;
+		this.likes = 0;
 	}
 	public Question() {
 		
@@ -45,6 +48,8 @@ public class Question implements Serializable {
  	private String username;
  	private String summary;
  	private String content;
+ 	private Integer likes;
+ 	private Integer numberOfAnswers;
 
  	@Enumerated(EnumType.STRING)
 	private QuestionType questionType;
@@ -52,9 +57,10 @@ public class Question implements Serializable {
 	private Date updateDate;
 	@Enumerated(EnumType.STRING)
 	private QuestionStatus status;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	List<Answer> answers;
+	@JsonIgnore
+    @OneToMany(targetEntity=Answer.class ,mappedBy = "question", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+	private List<Answer> answers;
 	
 	public int getQuestionId() {
 		return questionId;
@@ -181,6 +187,20 @@ public class Question implements Serializable {
 			return false;
 		return true;
 	}
+	public Integer getLikes() {
+		return likes;
+	}
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
+	public Integer getNumberOfAnswers() {
+		return numberOfAnswers;
+	}
+	public void setNumberOfAnswers(Integer numberOfAnswers) {
+		this.numberOfAnswers = numberOfAnswers;
+	}
 	
-	
+	public void incrementLikes () {
+		this.likes++;
+	}
 }

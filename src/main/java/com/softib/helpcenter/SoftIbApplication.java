@@ -69,7 +69,7 @@ public class SoftIbApplication {
 	      "Soft IB Core API.",
 	      "1.0",
 	      "Terms of service",
-	      new Contact("Dhia saadlaui", "https://github.com/dhiasaadlaui/softib", "dhiasaadlaui@gmail.com"),
+	      new Contact("Habib ali", "https://github.com/dhiasaadlaui/softib", "ali.habib@gmail.com"),
 	      "License of API",
 	      "API license URL",
 	      Collections.emptyList());
